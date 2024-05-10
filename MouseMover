@@ -1,0 +1,31 @@
+import java.awt.*;
+import java.awt.event.InputEvent;
+import java.util.concurrent.TimeUnit;
+
+public class MouseMover {
+  public static void main(String[] args) throws Exception {
+    Robot robot = new Robot();
+
+    while (true) {
+      // Get current cursor position
+      Point cursorPosition = MouseInfo.getPointerInfo().getLocation();
+      int x = cursorPosition.x;
+      int y = cursorPosition.y;
+
+      // Move one pixel left (check for screen boundaries)
+      int newX = Math.max(0, x - 1);
+
+      // Move the mouse
+      robot.mouseMove(newX, y);
+
+      // Wait 15 seconds
+      TimeUnit.SECONDS.sleep(15);
+
+      // Move one pixel right (check for screen boundaries)
+      newX = Math.min(Toolkit.getDefaultToolkit().getScreenSize().width - 1, x + 1);
+
+      // Move the mouse
+      robot.mouseMove(newX, y);
+    }
+  }
+}
